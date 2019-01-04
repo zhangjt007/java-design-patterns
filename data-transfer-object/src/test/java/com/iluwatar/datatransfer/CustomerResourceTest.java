@@ -36,47 +36,47 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * tests {@link CustomerResource}.
  */
 public class CustomerResourceTest {
-  @Test
-  public void shouldGetAllCustomers() {
-    CustomerDto customer = new CustomerDto("1", "Melody", "Yates");
-    List<CustomerDto> customers = new ArrayList<>();
-    customers.add(customer);
+    @Test
+    public void shouldGetAllCustomers() {
+        CustomerDto customer = new CustomerDto("1", "Melody", "Yates");
+        List<CustomerDto> customers = new ArrayList<>();
+        customers.add(customer);
 
-    CustomerResource customerResource = new CustomerResource(customers);
+        CustomerResource customerResource = new CustomerResource(customers);
 
-    List<CustomerDto> allCustomers = customerResource.getAllCustomers();
+        List<CustomerDto> allCustomers = customerResource.getAllCustomers();
 
-    assertEquals(1, allCustomers.size());
-    assertEquals("1", allCustomers.get(0).getId());
-    assertEquals("Melody", allCustomers.get(0).getFirstName());
-    assertEquals("Yates", allCustomers.get(0).getLastName());
-  }
+        assertEquals(1, allCustomers.size());
+        assertEquals("1", allCustomers.get(0).getId());
+        assertEquals("Melody", allCustomers.get(0).getFirstName());
+        assertEquals("Yates", allCustomers.get(0).getLastName());
+    }
 
-  @Test
-  public void shouldSaveCustomer() {
-    CustomerDto customer = new CustomerDto("1", "Rita", "Reynolds");
-    CustomerResource customerResource = new CustomerResource(new ArrayList<>());
+    @Test
+    public void shouldSaveCustomer() {
+        CustomerDto customer = new CustomerDto("1", "Rita", "Reynolds");
+        CustomerResource customerResource = new CustomerResource(new ArrayList<>());
 
-    customerResource.save(customer);
+        customerResource.save(customer);
 
-    List<CustomerDto> allCustomers = customerResource.getAllCustomers();
-    assertEquals("1", allCustomers.get(0).getId());
-    assertEquals("Rita", allCustomers.get(0).getFirstName());
-    assertEquals("Reynolds", allCustomers.get(0).getLastName());
-  }
+        List<CustomerDto> allCustomers = customerResource.getAllCustomers();
+        assertEquals("1", allCustomers.get(0).getId());
+        assertEquals("Rita", allCustomers.get(0).getFirstName());
+        assertEquals("Reynolds", allCustomers.get(0).getLastName());
+    }
 
-  @Test
-  public void shouldDeleteCustomer() {
-    CustomerDto customer = new CustomerDto("1", "Terry", "Nguyen");
-    List<CustomerDto> customers = new ArrayList<>();
-    customers.add(customer);
+    @Test
+    public void shouldDeleteCustomer() {
+        CustomerDto customer = new CustomerDto("1", "Terry", "Nguyen");
+        List<CustomerDto> customers = new ArrayList<>();
+        customers.add(customer);
 
-    CustomerResource customerResource = new CustomerResource(customers);
+        CustomerResource customerResource = new CustomerResource(customers);
 
-    customerResource.delete(customer.getId());
+        customerResource.delete(customer.getId());
 
-    List<CustomerDto> allCustomers = customerResource.getAllCustomers();
-    assertTrue(allCustomers.isEmpty());
-  }
+        List<CustomerDto> allCustomers = customerResource.getAllCustomers();
+        assertTrue(allCustomers.isEmpty());
+    }
 
 }

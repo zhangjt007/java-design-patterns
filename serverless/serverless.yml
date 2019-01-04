@@ -44,27 +44,27 @@ functions:
   lambdaInfoApi:
     handler: com.iluwatar.serverless.faas.api.LambdaInfoApiHandler
     events:
-      - http:
-          path: info
-          method: get
+    - http:
+        path: info
+        method: get
 
   savePerson:
     handler: com.iluwatar.serverless.baas.api.SavePersonApiHandler
     events:
-      - http:
-          path: api/person
-          method: post
-          cors: true
-          integration: lambda-proxy
+    - http:
+        path: api/person
+        method: post
+        cors: true
+        integration: lambda-proxy
 
   getPerson:
     handler: com.iluwatar.serverless.baas.api.FindPersonApiHandler
     events:
-      - http:
-          path: api/person/{id}
-          method: get
-          cors: true
-          integration: lambda-proxy
+    - http:
+        path: api/person/{id}
+        method: get
+        cors: true
+        integration: lambda-proxy
 
 resources:
   Resources:
@@ -73,11 +73,11 @@ resources:
       Properties:
         TableName: persons
         AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
+        - AttributeName: id
+          AttributeType: S
         KeySchema:
-          - AttributeName: id
-            KeyType: HASH
+        - AttributeName: id
+          KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -89,14 +89,14 @@ resources:
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-                - dynamodb:UpdateItem
-                - dynamodb:DeleteItem
-                - dynamodb:Query
-                - dynamodb:Scan
-              Resource: arn:aws:dynamodb:*:*:table/persons
+          - Effect: Allow
+            Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Query
+            - dynamodb:Scan
+            Resource: arn:aws:dynamodb:*:*:table/persons
         Roles:
-          - Ref: IamRoleLambdaExecution
+        - Ref: IamRoleLambdaExecution

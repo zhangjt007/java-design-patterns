@@ -37,96 +37,96 @@ import org.apache.isis.applib.util.ObjectContracts;
  * Definition of a Simple Object
  */
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE, schema = "simple",
-    table = "SimpleObject")
+        table = "SimpleObject")
 @javax.jdo.annotations.DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @javax.jdo.annotations.Queries({
-    @javax.jdo.annotations.Query(name = "find", language = "JDOQL", value = "SELECT "
-        + "FROM domainapp.dom.modules.simple.SimpleObject "),
-    @javax.jdo.annotations.Query(name = "findByName", language = "JDOQL", value = "SELECT "
-        + "FROM domainapp.dom.modules.simple.SimpleObject " + "WHERE name.indexOf(:name) >= 0 ")})
+        @javax.jdo.annotations.Query(name = "find", language = "JDOQL", value = "SELECT "
+                + "FROM domainapp.dom.modules.simple.SimpleObject "),
+        @javax.jdo.annotations.Query(name = "findByName", language = "JDOQL", value = "SELECT "
+                + "FROM domainapp.dom.modules.simple.SimpleObject " + "WHERE name.indexOf(:name) >= 0 ")})
 @javax.jdo.annotations.Unique(name = "SimpleObject_name_UNQ", members = {"name"})
 @DomainObject
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_ROOT, cssClassFa = "fa-flag")
 public class SimpleObject implements Comparable<SimpleObject> {
 
-  // endregion
+    // endregion
 
-  // region > name (property)
+    // region > name (property)
 
-  private String name;
+    private String name;
 
-  // region > identificatiom
-  public TranslatableString title() {
-    return TranslatableString.tr("Object: {name}", "name", getName());
-  }
-
-  @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
-  @Title(sequence = "1")
-  @Property(editing = Editing.DISABLED)
-  public String getName() {
-    return name;
-  }
-
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  // endregion
-
-  // region > updateName (action)
-
-  /**
-   * Event used to update the Name in the Domain
-   */
-  public static class UpdateNameDomainEvent extends ActionDomainEvent<SimpleObject> {
-    public UpdateNameDomainEvent(final SimpleObject source, final Identifier identifier,
-        final Object... arguments) {
-      super(source, identifier, arguments);
+    // region > identificatiom
+    public TranslatableString title() {
+        return TranslatableString.tr("Object: {name}", "name", getName());
     }
-  }
 
-  @Action(domainEvent = UpdateNameDomainEvent.class)
-  public SimpleObject updateName(
-      @Parameter(maxLength = 40) @ParameterLayout(named = "New name") final String name) {
-    setName(name);
-    return this;
-  }
+    @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
+    @Title(sequence = "1")
+    @Property(editing = Editing.DISABLED)
+    public String getName() {
+        return name;
+    }
 
-  public String default0UpdateName() {
-    return getName();
-  }
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-  public TranslatableString validateUpdateName(final String name) {
-    return name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-  }
+    // endregion
 
-  // endregion
+    // region > updateName (action)
 
-  // region > version (derived property)
-  public Long getVersionSequence() {
-    return (Long) JDOHelper.getVersion(this);
-  }
+    /**
+     * Event used to update the Name in the Domain
+     */
+    public static class UpdateNameDomainEvent extends ActionDomainEvent<SimpleObject> {
+        public UpdateNameDomainEvent(final SimpleObject source, final Identifier identifier,
+                                     final Object... arguments) {
+            super(source, identifier, arguments);
+        }
+    }
 
-  // endregion
+    @Action(domainEvent = UpdateNameDomainEvent.class)
+    public SimpleObject updateName(
+            @Parameter(maxLength = 40) @ParameterLayout(named = "New name") final String name) {
+        setName(name);
+        return this;
+    }
 
-  // region > compareTo
+    public String default0UpdateName() {
+        return getName();
+    }
 
-  @Override
-  public int compareTo(final SimpleObject other) {
-    return ObjectContracts.compare(this, other, "name");
-  }
+    public TranslatableString validateUpdateName(final String name) {
+        return name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+    }
 
-  // endregion
+    // endregion
 
-  // region > injected services
+    // region > version (derived property)
+    public Long getVersionSequence() {
+        return (Long) JDOHelper.getVersion(this);
+    }
 
-  @javax.inject.Inject
-  @SuppressWarnings("unused")
-  private DomainObjectContainer container;
+    // endregion
 
-  // endregion
+    // region > compareTo
+
+    @Override
+    public int compareTo(final SimpleObject other) {
+        return ObjectContracts.compare(this, other, "name");
+    }
+
+    // endregion
+
+    // region > injected services
+
+    @javax.inject.Inject
+    @SuppressWarnings("unused")
+    private DomainObjectContainer container;
+
+    // endregion
 
 
 }

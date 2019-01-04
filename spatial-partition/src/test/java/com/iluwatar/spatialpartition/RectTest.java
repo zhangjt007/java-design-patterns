@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Sepp�l�
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,6 +24,7 @@
 package com.iluwatar.spatialpartition;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -32,21 +33,21 @@ import org.junit.jupiter.api.Test;
 
 class RectTest {
 
-  @Test
-  void containsTest() {
-    Rect r = new Rect(10,10,20,20);
-    Bubble b1 = new Bubble(2,2,1,1);
-    Bubble b2 = new Bubble(30,30,2,1);
-    //r contains b1 and not b2
-    assertTrue(r.contains(b1) && !r.contains(b2));
-  }
+    @Test
+    void containsTest() {
+        Rect r = new Rect(10, 10, 20, 20);
+        Bubble b1 = new Bubble(2, 2, 1, 1);
+        Bubble b2 = new Bubble(30, 30, 2, 1);
+        //r contains b1 and not b2
+        assertTrue(r.contains(b1) && !r.contains(b2));
+    }
 
-  @Test
-  void intersectsTest() {
-    Rect r1 = new Rect(10,10,20,20);
-    Rect r2 = new Rect(15,15,20,20);
-    Rect r3 = new Rect(50,50,20,20);
-    //r1 intersects r2 and not r3
-    assertTrue(r1.intersects(r2) && !r1.intersects(r3));
-  }
+    @Test
+    void intersectsTest() {
+        Rect r1 = new Rect(10, 10, 20, 20);
+        Rect r2 = new Rect(15, 15, 20, 20);
+        Rect r3 = new Rect(50, 50, 20, 20);
+        //r1 intersects r2 and not r3
+        assertTrue(r1.intersects(r2) && !r1.intersects(r3));
+    }
 }

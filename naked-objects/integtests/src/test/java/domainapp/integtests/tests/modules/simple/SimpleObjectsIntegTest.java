@@ -45,95 +45,95 @@ import domainapp.integtests.tests.SimpleAppIntegTest;
  */
 public class SimpleObjectsIntegTest extends SimpleAppIntegTest {
 
-  @Inject
-  FixtureScripts fixtureScripts;
-  @Inject
-  SimpleObjects simpleObjects;
+    @Inject
+    FixtureScripts fixtureScripts;
+    @Inject
+    SimpleObjects simpleObjects;
 
-  @Test
-  public void testListAll() throws Exception {
+    @Test
+    public void testListAll() throws Exception {
 
-    // given
-    RecreateSimpleObjects fs = new RecreateSimpleObjects();
-    fixtureScripts.runFixtureScript(fs, null);
-    nextTransaction();
+        // given
+        RecreateSimpleObjects fs = new RecreateSimpleObjects();
+        fixtureScripts.runFixtureScript(fs, null);
+        nextTransaction();
 
-    // when
-    final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        // when
+        final List<SimpleObject> all = wrap(simpleObjects).listAll();
 
-    // then
-    assertEquals(fs.getSimpleObjects().size(), all.size());
+        // then
+        assertEquals(fs.getSimpleObjects().size(), all.size());
 
-    SimpleObject simpleObject = wrap(all.get(0));
-    assertEquals(fs.getSimpleObjects().get(0).getName(), simpleObject.getName());
-  }
-  
-  @Test
-  public void testListAllWhenNone() throws Exception {
+        SimpleObject simpleObject = wrap(all.get(0));
+        assertEquals(fs.getSimpleObjects().get(0).getName(), simpleObject.getName());
+    }
 
-    // given
-    FixtureScript fs = new SimpleObjectsTearDown();
-    fixtureScripts.runFixtureScript(fs, null);
-    nextTransaction();
+    @Test
+    public void testListAllWhenNone() throws Exception {
 
-    // when
-    final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        // given
+        FixtureScript fs = new SimpleObjectsTearDown();
+        fixtureScripts.runFixtureScript(fs, null);
+        nextTransaction();
 
-    // then
-    assertEquals(0, all.size());
-  }
-  
-  @Test
-  public void testCreate() throws Exception {
+        // when
+        final List<SimpleObject> all = wrap(simpleObjects).listAll();
 
-    // given
-    FixtureScript fs = new SimpleObjectsTearDown();
-    fixtureScripts.runFixtureScript(fs, null);
-    nextTransaction();
+        // then
+        assertEquals(0, all.size());
+    }
 
-    // when
-    wrap(simpleObjects).create("Faz");
+    @Test
+    public void testCreate() throws Exception {
 
-    // then
-    final List<SimpleObject> all = wrap(simpleObjects).listAll();
-    assertEquals(1, all.size());
-  }
-  
-  @Test
-  public void testCreateWhenAlreadyExists() throws Exception {
+        // given
+        FixtureScript fs = new SimpleObjectsTearDown();
+        fixtureScripts.runFixtureScript(fs, null);
+        nextTransaction();
 
-    // given
-    FixtureScript fs = new SimpleObjectsTearDown();
-    fixtureScripts.runFixtureScript(fs, null);
-    nextTransaction();
-    wrap(simpleObjects).create("Faz");
-    nextTransaction();
+        // when
+        wrap(simpleObjects).create("Faz");
 
-    // then
-    expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
+        // then
+        final List<SimpleObject> all = wrap(simpleObjects).listAll();
+        assertEquals(1, all.size());
+    }
 
-    // when
-    wrap(simpleObjects).create("Faz");
-    nextTransaction();
-  }
-  
-  private static Matcher<? extends Throwable> causalChainContains(final Class<?> cls) {
-    return new TypeSafeMatcher<Throwable>() {
-      @Override
-      protected boolean matchesSafely(Throwable item) {
-        final List<Throwable> causalChain = Throwables.getCausalChain(item);
-        for (Throwable throwable : causalChain) {
-          if (cls.isAssignableFrom(throwable.getClass())) {
-            return true;
-          }
-        }
-        return false;
-      }
+    @Test
+    public void testCreateWhenAlreadyExists() throws Exception {
 
-      @Override
-      public void describeTo(Description description) {
-        description.appendText("exception with causal chain containing " + cls.getSimpleName());
-      }
-    };
-  }
+        // given
+        FixtureScript fs = new SimpleObjectsTearDown();
+        fixtureScripts.runFixtureScript(fs, null);
+        nextTransaction();
+        wrap(simpleObjects).create("Faz");
+        nextTransaction();
+
+        // then
+        expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
+
+        // when
+        wrap(simpleObjects).create("Faz");
+        nextTransaction();
+    }
+
+    private static Matcher<? extends Throwable> causalChainContains(final Class<?> cls) {
+        return new TypeSafeMatcher<Throwable>() {
+            @Override
+            protected boolean matchesSafely(Throwable item) {
+                final List<Throwable> causalChain = Throwables.getCausalChain(item);
+                for (Throwable throwable : causalChain) {
+                    if (cls.isAssignableFrom(throwable.getClass())) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("exception with causal chain containing " + cls.getSimpleName());
+            }
+        };
+    }
 }

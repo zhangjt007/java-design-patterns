@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014 Ilkka Seppälä
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -41,36 +41,36 @@ import org.slf4j.LoggerFactory;
  */
 public class App {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-  /**
-   * Program entry point.
-   * 
-   * @param args
-   *            command line args
-   */
-  public static void main(String[] args) {
+    /**
+     * Program entry point.
+     *
+     * @param args
+     *            command line args
+     */
+    public static void main(String[] args) {
 
-    List<Car> cars = CarFactory.createCars();
-    
-    List<String> modelsImperative = ImperativeProgramming.getModelsAfter2000(cars);
-    LOGGER.info(modelsImperative.toString());
+        List<Car> cars = CarFactory.createCars();
 
-    List<String> modelsFunctional = FunctionalProgramming.getModelsAfter2000(cars);
-    LOGGER.info(modelsFunctional.toString());
-    
-    Map<Category, List<Car>> groupingByCategoryImperative = ImperativeProgramming.getGroupingOfCarsByCategory(cars);
-    LOGGER.info(groupingByCategoryImperative.toString());
+        List<String> modelsImperative = ImperativeProgramming.getModelsAfter2000(cars);
+        LOGGER.info(modelsImperative.toString());
 
-    Map<Category, List<Car>> groupingByCategoryFunctional = FunctionalProgramming.getGroupingOfCarsByCategory(cars);
-    LOGGER.info(groupingByCategoryFunctional.toString());
-    
-    Person john = new Person(cars);
-    
-    List<Car> sedansOwnedImperative = ImperativeProgramming.getSedanCarsOwnedSortedByDate(Arrays.asList(john));
-    LOGGER.info(sedansOwnedImperative.toString());
+        List<String> modelsFunctional = FunctionalProgramming.getModelsAfter2000(cars);
+        LOGGER.info(modelsFunctional.toString());
 
-    List<Car> sedansOwnedFunctional = FunctionalProgramming.getSedanCarsOwnedSortedByDate(Arrays.asList(john));
-    LOGGER.info(sedansOwnedFunctional.toString());
-  }
+        Map<Category, List<Car>> groupingByCategoryImperative = ImperativeProgramming.getGroupingOfCarsByCategory(cars);
+        LOGGER.info(groupingByCategoryImperative.toString());
+
+        Map<Category, List<Car>> groupingByCategoryFunctional = FunctionalProgramming.getGroupingOfCarsByCategory(cars);
+        LOGGER.info(groupingByCategoryFunctional.toString());
+
+        Person john = new Person(cars);
+
+        List<Car> sedansOwnedImperative = ImperativeProgramming.getSedanCarsOwnedSortedByDate(Arrays.asList(john));
+        LOGGER.info(sedansOwnedImperative.toString());
+
+        List<Car> sedansOwnedFunctional = FunctionalProgramming.getSedanCarsOwnedSortedByDate(Arrays.asList(john));
+        LOGGER.info(sedansOwnedFunctional.toString());
+    }
 }

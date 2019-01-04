@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Seppälä
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,49 +39,49 @@ import java.util.Scanner;
  */
 public class ConsoleAdministration {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleAdministration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleAdministration.class);
 
-  /**
-   * Program entry point
-   */
-  public static void main(String[] args) {
-    MongoConnectionPropertiesLoader.load();
-    Injector injector = Guice.createInjector(new LotteryModule());
-    LotteryAdministration administration = injector.getInstance(LotteryAdministration.class);
-    LotteryService service = injector.getInstance(LotteryService.class);
-    SampleData.submitTickets(service, 20);
-    ConsoleAdministrationSrv consoleAdministration = new ConsoleAdministrationSrvImpl(administration, LOGGER);
-    try (Scanner scanner = new Scanner(System.in)) {
-      boolean exit = false;
-      while (!exit) {
-        printMainMenu();
-        String cmd = readString(scanner);
-        if ("1".equals(cmd)) {
-          consoleAdministration.getAllSubmittedTickets();
-        } else if ("2".equals(cmd)) {
-          consoleAdministration.performLottery();
-        } else if ("3".equals(cmd)) {
-          consoleAdministration.resetLottery();
-        } else if ("4".equals(cmd)) {
-          exit = true;
-        } else {
-          LOGGER.info("Unknown command: {}", cmd);
+    /**
+     * Program entry point
+     */
+    public static void main(String[] args) {
+        MongoConnectionPropertiesLoader.load();
+        Injector injector = Guice.createInjector(new LotteryModule());
+        LotteryAdministration administration = injector.getInstance(LotteryAdministration.class);
+        LotteryService service = injector.getInstance(LotteryService.class);
+        SampleData.submitTickets(service, 20);
+        ConsoleAdministrationSrv consoleAdministration = new ConsoleAdministrationSrvImpl(administration, LOGGER);
+        try (Scanner scanner = new Scanner(System.in)) {
+            boolean exit = false;
+            while (!exit) {
+                printMainMenu();
+                String cmd = readString(scanner);
+                if ("1".equals(cmd)) {
+                    consoleAdministration.getAllSubmittedTickets();
+                } else if ("2".equals(cmd)) {
+                    consoleAdministration.performLottery();
+                } else if ("3".equals(cmd)) {
+                    consoleAdministration.resetLottery();
+                } else if ("4".equals(cmd)) {
+                    exit = true;
+                } else {
+                    LOGGER.info("Unknown command: {}", cmd);
+                }
+            }
         }
-      }
     }
-  }
 
-  private static void printMainMenu() {
-    LOGGER.info("");
-    LOGGER.info("### Lottery Administration Console ###");
-    LOGGER.info("(1) Show all submitted tickets");
-    LOGGER.info("(2) Perform lottery draw");
-    LOGGER.info("(3) Reset lottery ticket database");
-    LOGGER.info("(4) Exit");
-  }
+    private static void printMainMenu() {
+        LOGGER.info("");
+        LOGGER.info("### Lottery Administration Console ###");
+        LOGGER.info("(1) Show all submitted tickets");
+        LOGGER.info("(2) Perform lottery draw");
+        LOGGER.info("(3) Reset lottery ticket database");
+        LOGGER.info("(4) Exit");
+    }
 
-  private static String readString(Scanner scanner) {
-    System.out.print("> ");
-    return scanner.next();
-  }
+    private static String readString(Scanner scanner) {
+        System.out.print("> ");
+        return scanner.next();
+    }
 }

@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Seppälä
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,49 +36,50 @@ import static java.lang.Thread.sleep;
  */
 public class ServiceAmbassador implements RemoteServiceInterface {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAmbassador.class);
-  private static final int RETRIES = 3;
-  private static final int DELAY_MS = 3000;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAmbassador.class);
+    private static final int RETRIES = 3;
+    private static final int DELAY_MS = 3000;
 
-  ServiceAmbassador() {}
-
-  @Override
-  public long doRemoteFunction(int value) {
-    return safeCall(value);
-  }
-
-  private long checkLatency(int value) {
-    long startTime = System.currentTimeMillis();
-    long result = RemoteService.getRemoteService().doRemoteFunction(value);
-    long timeTaken = System.currentTimeMillis() - startTime;
-
-    LOGGER.info("Time taken (ms): " + timeTaken);
-    return result;
-  }
-
-  private long safeCall(int value) {
-
-    int retries = 0;
-    long result = FAILURE;
-
-    for (int i = 0; i < RETRIES; i++) {
-
-      if (retries >= RETRIES) {
-        return FAILURE;
-      }
-
-      if ((result = checkLatency(value)) == FAILURE) {
-        LOGGER.info("Failed to reach remote: (" + (i + 1) + ")");
-        retries++;
-        try {
-          sleep(DELAY_MS);
-        } catch (InterruptedException e) {
-          LOGGER.error("Thread sleep state interrupted", e);
-        }
-      } else {
-        break;
-      }
+    ServiceAmbassador() {
     }
-    return result;
-  }
+
+    @Override
+    public long doRemoteFunction(int value) {
+        return safeCall(value);
+    }
+
+    private long checkLatency(int value) {
+        long startTime = System.currentTimeMillis();
+        long result = RemoteService.getRemoteService().doRemoteFunction(value);
+        long timeTaken = System.currentTimeMillis() - startTime;
+
+        LOGGER.info("Time taken (ms): " + timeTaken);
+        return result;
+    }
+
+    private long safeCall(int value) {
+
+        int retries = 0;
+        long result = FAILURE;
+
+        for (int i = 0; i < RETRIES; i++) {
+
+            if (retries >= RETRIES) {
+                return FAILURE;
+            }
+
+            if ((result = checkLatency(value)) == FAILURE) {
+                LOGGER.info("Failed to reach remote: (" + (i + 1) + ")");
+                retries++;
+                try {
+                    sleep(DELAY_MS);
+                } catch (InterruptedException e) {
+                    LOGGER.error("Thread sleep state interrupted", e);
+                }
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
 }

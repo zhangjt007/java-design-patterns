@@ -23,54 +23,54 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>com.iluwatar</groupId>
-		<artifactId>java-design-patterns</artifactId>
-		<version>1.21.0-SNAPSHOT</version>
-	</parent>
-	
-	<artifactId>acyclic-visitor</artifactId>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
+    <parent>
+        <groupId>com.iluwatar</groupId>
+        <artifactId>java-design-patterns</artifactId>
+        <version>1.21.0-SNAPSHOT</version>
+    </parent>
 
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.9.1</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/uk.org.lidalia/slf4j-test -->
-		<dependency>
-			<groupId>uk.org.lidalia</groupId>
-			<artifactId>slf4j-test</artifactId>
-			<version>1.0.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-      		<groupId>org.junit.jupiter</groupId>
-      		<artifactId>junit-jupiter-api</artifactId>
-      		<scope>test</scope>
-    	</dependency>
-    	<dependency>
-      		<groupId>org.junit.jupiter</groupId>
-      		<artifactId>junit-jupiter-engine</artifactId>
-      		<scope>test</scope>
-    	</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <artifactId>acyclic-visitor</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.9.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/uk.org.lidalia/slf4j-test -->
+        <dependency>
+            <groupId>uk.org.lidalia</groupId>
+            <artifactId>slf4j-test</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

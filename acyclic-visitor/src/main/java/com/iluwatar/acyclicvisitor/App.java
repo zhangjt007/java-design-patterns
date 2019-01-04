@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Seppälä
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,27 +29,27 @@ package com.iluwatar.acyclicvisitor;
  * degenerate
  * <p>
  * In this example the visitor base class is {@link ModemVisitor}. The base class of the 
- * visited hierarchy is {@link Modem} and has two children {@link Hayes} and {@link Zoom} 
- * each one having its own visitor interface {@link HayesVisitor} and {@link ZoomVisitor} 
- * respectively. {@link ConfigureForUnixVisitor} and {@link ConfigureForDosVisitor} 
+ * visited hierarchy is {@link Modem} and has two children {@link Hayes} and {@link Zoom}
+ * each one having its own visitor interface {@link HayesVisitor} and {@link ZoomVisitor}
+ * respectively. {@link ConfigureForUnixVisitor} and {@link ConfigureForDosVisitor}
  * implement each derivative's visit method only if it is required 
  */
 public class App {
-  
-  /**
-   * Program's entry point
-   */
-  
-  public static void main(String[] args) {  
-    ConfigureForUnixVisitor conUnix = new ConfigureForUnixVisitor();
-    ConfigureForDosVisitor conDos = new ConfigureForDosVisitor();
-    
-    Zoom zoom = new Zoom();
-    Hayes hayes = new Hayes();
-    
-    hayes.accept(conDos); // Hayes modem with Unix configurator
-    zoom.accept(conDos); // Zoom modem with Dos configurator
-    hayes.accept(conUnix); // Hayes modem with Unix configurator
-    zoom.accept(conUnix); // Zoom modem with Unix configurator   
-  }
+
+    /**
+     * Program's entry point
+     */
+
+    public static void main(String[] args) {
+        ConfigureForUnixVisitor conUnix = new ConfigureForUnixVisitor();
+        ConfigureForDosVisitor conDos = new ConfigureForDosVisitor();
+
+        Zoom zoom = new Zoom();
+        Hayes hayes = new Hayes();
+
+        hayes.accept(conDos); // Hayes modem with Unix configurator
+        zoom.accept(conDos); // Zoom modem with Dos configurator
+        hayes.accept(conUnix); // Hayes modem with Unix configurator
+        zoom.accept(conUnix); // Zoom modem with Unix configurator
+    }
 }

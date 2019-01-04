@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2014-2016 Ilkka Seppälä
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -45,60 +45,60 @@ import static org.mockito.Mockito.when;
  * @author Jeroen Meulemeester
  */
 public class AsynchronousServiceTest {
-  private AsynchronousService service;
-  private AsyncTask<Object> task;
+    private AsynchronousService service;
+    private AsyncTask<Object> task;
 
-  @BeforeEach
-  public void setUp() {
-    service = new AsynchronousService(new LinkedBlockingQueue<>());
-    task = mock(AsyncTask.class);
-  }
+    @BeforeEach
+    public void setUp() {
+        service = new AsynchronousService(new LinkedBlockingQueue<>());
+        task = mock(AsyncTask.class);
+    }
 
-  @Test
-  public void testPerfectExecution() throws Exception {
-    final Object result = new Object();
-    when(task.call()).thenReturn(result);
-    service.execute(task);
+    @Test
+    public void testPerfectExecution() throws Exception {
+        final Object result = new Object();
+        when(task.call()).thenReturn(result);
+        service.execute(task);
 
-    verify(task, timeout(2000)).onPostCall(eq(result));
+        verify(task, timeout(2000)).onPostCall(eq(result));
 
-    final InOrder inOrder = inOrder(task);
-    inOrder.verify(task, times(1)).onPreCall();
-    inOrder.verify(task, times(1)).call();
-    inOrder.verify(task, times(1)).onPostCall(eq(result));
+        final InOrder inOrder = inOrder(task);
+        inOrder.verify(task, times(1)).onPreCall();
+        inOrder.verify(task, times(1)).call();
+        inOrder.verify(task, times(1)).onPostCall(eq(result));
 
-    verifyNoMoreInteractions(task);
-  }
+        verifyNoMoreInteractions(task);
+    }
 
-  @Test
-  public void testCallException() throws Exception {
-    final IOException exception = new IOException();
-    when(task.call()).thenThrow(exception);
-    service.execute(task);
+    @Test
+    public void testCallException() throws Exception {
+        final IOException exception = new IOException();
+        when(task.call()).thenThrow(exception);
+        service.execute(task);
 
-    verify(task, timeout(2000)).onError(eq(exception));
+        verify(task, timeout(2000)).onError(eq(exception));
 
-    final InOrder inOrder = inOrder(task);
-    inOrder.verify(task, times(1)).onPreCall();
-    inOrder.verify(task, times(1)).call();
-    inOrder.verify(task, times(1)).onError(exception);
+        final InOrder inOrder = inOrder(task);
+        inOrder.verify(task, times(1)).onPreCall();
+        inOrder.verify(task, times(1)).call();
+        inOrder.verify(task, times(1)).onError(exception);
 
-    verifyNoMoreInteractions(task);
-  }
+        verifyNoMoreInteractions(task);
+    }
 
-  @Test
-  public void testPreCallException() {
-    final IllegalStateException exception = new IllegalStateException();
-    doThrow(exception).when(task).onPreCall();
-    service.execute(task);
+    @Test
+    public void testPreCallException() {
+        final IllegalStateException exception = new IllegalStateException();
+        doThrow(exception).when(task).onPreCall();
+        service.execute(task);
 
-    verify(task, timeout(2000)).onError(eq(exception));
+        verify(task, timeout(2000)).onError(eq(exception));
 
-    final InOrder inOrder = inOrder(task);
-    inOrder.verify(task, times(1)).onPreCall();
-    inOrder.verify(task, times(1)).onError(exception);
+        final InOrder inOrder = inOrder(task);
+        inOrder.verify(task, times(1)).onPreCall();
+        inOrder.verify(task, times(1)).onError(exception);
 
-    verifyNoMoreInteractions(task);
-  }
+        verifyNoMoreInteractions(task);
+    }
 
 }

@@ -33,39 +33,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class WashingMachineTest {
 
-  private FakeDelayProvider fakeDelayProvider = new FakeDelayProvider();
+    private FakeDelayProvider fakeDelayProvider = new FakeDelayProvider();
 
-  @Test
-  public void wash() {
-    WashingMachine washingMachine = new WashingMachine(fakeDelayProvider);
+    @Test
+    public void wash() {
+        WashingMachine washingMachine = new WashingMachine(fakeDelayProvider);
 
-    washingMachine.wash();
-    washingMachine.wash();
+        washingMachine.wash();
+        washingMachine.wash();
 
-    WashingMachineState machineStateGlobal = washingMachine.getWashingMachineState();
+        WashingMachineState machineStateGlobal = washingMachine.getWashingMachineState();
 
-    fakeDelayProvider.task.run();
+        fakeDelayProvider.task.run();
 
-    // washing machine remains in washing state
-    assertEquals(WashingMachineState.WASHING, machineStateGlobal);
+        // washing machine remains in washing state
+        assertEquals(WashingMachineState.WASHING, machineStateGlobal);
 
-    // washing machine goes back to enabled state
-    assertEquals(WashingMachineState.ENABLED, washingMachine.getWashingMachineState());
-  }
-
-  @Test
-  public void endOfWashing() {
-    WashingMachine washingMachine = new WashingMachine();
-    washingMachine.wash();
-    assertEquals(WashingMachineState.ENABLED, washingMachine.getWashingMachineState());
-  }
-
-  private class FakeDelayProvider implements DelayProvider {
-    private Runnable task;
-
-    @Override
-    public void executeAfterDelay(long interval, TimeUnit timeUnit, Runnable task) {
-      this.task = task;
+        // washing machine goes back to enabled state
+        assertEquals(WashingMachineState.ENABLED, washingMachine.getWashingMachineState());
     }
-  }
+
+    @Test
+    public void endOfWashing() {
+        WashingMachine washingMachine = new WashingMachine();
+        washingMachine.wash();
+        assertEquals(WashingMachineState.ENABLED, washingMachine.getWashingMachineState());
+    }
+
+    private class FakeDelayProvider implements DelayProvider {
+        private Runnable task;
+
+        @Override
+        public void executeAfterDelay(long interval, TimeUnit timeUnit, Runnable task) {
+            this.task = task;
+        }
+    }
 }
